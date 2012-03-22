@@ -6,6 +6,10 @@ A Jenkins plugin which scans a project's source tree and generates a tag cloud o
 
 * Test with languages other than Java.
 
+## Thanks To
+
+*[Open Cloud](http://opencloud.mcavallo.org/) for the library which generates the tag clouds.
+
 ## Licence
 
 MIT Licence
