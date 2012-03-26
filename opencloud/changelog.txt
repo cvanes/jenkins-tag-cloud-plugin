@@ -1,0 +1,24 @@
+OpenCloud Changelog
+===================
+
+Changes in version 0.3 (2011-02-05)
+---------------------------------
+* DictionaryFilter made case-insensitive by default (ID 3018110)
+* Added more stop words to dictionary filter english black list (ID 3018111)
+* Corrected the weight assignment in the Tag copy constructor (ID 3039013)
+* Corrected error in HTMLFormatter when formatting tags with null link
+
+
+Changes in version 0.2 (2009-09-27)
+---------------------------------
+* Packages have been renamed to org.mcavallo.opencloud
+* addText method now accepts special characters by default (accented letters, etc.)
+* Added capitalized case
+* Added comparators NameComparatorDesc and ScoreComparatorAsc
+* Classes now implement Serializable
+* Many small improvements
+
+
+Version 0.1
+-----------
+Initial alpha version

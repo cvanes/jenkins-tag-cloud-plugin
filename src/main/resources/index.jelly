@@ -1,0 +1,6 @@
+<!--
+  This view is used to render the installed plugins page.
+-->
+<div>
+  Generate a tag cloud of commonly used words from the project source code.
+</div>
