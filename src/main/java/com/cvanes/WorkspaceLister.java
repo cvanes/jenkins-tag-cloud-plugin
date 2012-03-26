@@ -39,9 +39,10 @@ public class WorkspaceLister implements FilePath.FileCallable<String> {
         String[] files = ds.getIncludedFiles();
         StringBuilder allFileContents = new StringBuilder();
         for (String filename : files) {
-            FileInputStream inputStream = new FileInputStream(filename);
+            FileInputStream inputStream = new FileInputStream(workspace.getAbsolutePath() + File.separator + filename);
             while (inputStream.read(buffer) != -1) {
-                allFileContents.append(buffer);
+                allFileContents.append(new String(buffer));
+                allFileContents.append("\n");
             }
         }
         return allFileContents.toString();
