@@ -44,7 +44,7 @@ public class TagCloudRecorder extends Recorder {
 
         @Override
         public TagCloudRecorder newInstance(StaplerRequest req, JSONObject formData) throws FormException {
-            return req.bindJSON(TagCloudRecorder.class,formData);
+            return req.bindJSON(TagCloudRecorder.class, formData);
         }
     }
 
@@ -83,8 +83,13 @@ public class TagCloudRecorder extends Recorder {
         logger.println("*****SOURCE USED FOR TAG CLOUD*****");
         String workspaceData = build.getWorkspace().act(new WorkspaceLister(includes, excludes));
         logger.println(workspaceData);
+        logger.flush();
+        System.out.println(workspaceData);
+
+        build.addAction(new TagCloudAction(workspaceData));
 
         return true;
     }
+
 
 }

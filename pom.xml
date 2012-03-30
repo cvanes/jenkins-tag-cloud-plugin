@@ -6,7 +6,6 @@
     <version>1.424</version>
   </parent>
 
-  <groupId>com.cvanes</groupId>
   <artifactId>jenkins-tag-cloud-plugin</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>hpi</packaging>
