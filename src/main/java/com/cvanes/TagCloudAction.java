@@ -10,6 +10,9 @@ public class TagCloudAction implements Action {
 
     public TagCloudAction(String workspaceData) {
         wordCloud = new Cloud();
+        wordCloud.setMinWeight(1);
+        wordCloud.setMaxWeight(10);
+        wordCloud.setMaxTagsToDisplay(50);
         wordCloud.addText(workspaceData);
     }
 

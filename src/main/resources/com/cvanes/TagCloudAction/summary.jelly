@@ -26,11 +26,80 @@ THE SOFTWARE.
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
          xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
-         
+  
+<style>
+body {
+    font-family: Tahoma, Verdana, Helvetica, Sans-serif;
+}
+
+.tagcloud {
+    font-size: 25px;
+    text-align: center;
+    padding: 15px;
+    border: 1px solid #eeeeee;
+    background-color: #f2f2f2;
+}
+
+.t10 {
+    color: #FF3300;
+    font-size: 240%;
+    font-weight: bold;
+}
+
+.t9 {
+    color: #FF3300;
+    font-size: 220%;
+}
+
+.t8 {
+    color: #FF9933;
+    font-size: 200%;
+    font-weight: bold;
+}
+
+.t7 {
+    color: #FF9933;
+    font-size: 180%;
+}
+
+.t6 {
+    color: #99CC33;
+    font-size: 160%;
+    font-weight: bold;
+}
+
+.t5 {
+    color: #339933;
+    font-size: 140%;
+}
+
+.t4 {
+    color: #339933;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+.t3 {
+    color: #339999;
+    font-size: 100%;
+}
+
+.t2 {
+    color: #3399FF;
+    font-size: 80%;
+    font-weight: bold;
+}
+
+.t1 {
+    color: #888888;
+    font-size: 60%;
+} 
+</style>
+  
   <t:summary icon="/plugin/jenkins-tag-cloud-plugin/icons/48x48.png">
-    <div style="width: 60%; border: 1px solid #eeeeee; background-color: #f2f2f2;">
+    <div class="tagcloud">
       <j:forEach var="tag" items="${it.cloud.tags()}">
-        <a href="" style="font-size: ${tag.weight}em;">${tag.getName()}</a>&#160;
+        <span class="t${tag.weightInt}">${tag.getName()}</span>&#160;
       </j:forEach>
     </div>
   </t:summary>
