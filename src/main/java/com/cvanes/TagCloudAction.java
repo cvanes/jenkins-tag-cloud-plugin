@@ -2,18 +2,25 @@ package com.cvanes;
 
 import hudson.model.Action;
 
+import java.util.List;
+
 import org.mcavallo.opencloud.Cloud;
+import org.mcavallo.opencloud.Tag;
 
 public class TagCloudAction implements Action {
 
-    private final Cloud wordCloud;
+    private final List<Tag> tags;
+
+//    private final transient AbstractProject<?, ?> job;
 
     public TagCloudAction(String workspaceData) {
-        wordCloud = new Cloud();
-        wordCloud.setMinWeight(1);
-        wordCloud.setMaxWeight(10);
-        wordCloud.setMaxTagsToDisplay(50);
-        wordCloud.addText(workspaceData);
+        Cloud tagCloud = new Cloud();
+        tagCloud.setMinWeight(1);
+        tagCloud.setMaxWeight(10);
+        tagCloud.setMaxTagsToDisplay(50);
+        tagCloud.addText(workspaceData);
+
+        tags = tagCloud.tags();
     }
 
     public String getIconFileName() {
@@ -21,15 +28,22 @@ public class TagCloudAction implements Action {
     }
 
     public String getDisplayName() {
-        return "CvE test!!!";
+        return "Tag Cloud From Source";
     }
 
     public String getUrlName() {
-        return null;
+        return "tagCloud";
     }
 
-    public Cloud getCloud() {
-        return wordCloud;
+    public List<Tag> getTags() {
+        return tags;
     }
+//
+//    public AbstractProject<?,?> getOwner() {
+//        return job;
+//    }
+
+//    public void doIndex(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
+//    }
 
 }

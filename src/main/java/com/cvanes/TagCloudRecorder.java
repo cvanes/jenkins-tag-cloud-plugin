@@ -2,6 +2,7 @@ package com.cvanes;
 
 import hudson.Extension;
 import hudson.Launcher;
+import hudson.model.Action;
 import hudson.model.BuildListener;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
@@ -12,6 +13,9 @@ import hudson.tasks.Recorder;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import net.sf.json.JSONObject;
 
@@ -80,15 +84,28 @@ public class TagCloudRecorder extends Recorder {
                            BuildListener listener) throws InterruptedException, IOException {
 
         PrintStream logger = listener.getLogger();
-        logger.println("*****SOURCE USED FOR TAG CLOUD*****");
-        String workspaceData = build.getWorkspace().act(new WorkspaceLister(includes, excludes));
+        String workspaceData = build.getWorkspace().act(new WorkspaceReader(includes, excludes));
         logger.println(workspaceData);
         logger.flush();
         System.out.println(workspaceData);
 
+        // store for use in the job main page later
         build.addAction(new TagCloudAction(workspaceData));
 
         return true;
+    }
+
+    @Override
+    public Collection<? extends Action> getProjectActions(AbstractProject<?, ?> project) {
+        List<TagCloudAction> actions = new ArrayList<TagCloudAction>();
+        if (project.getLastBuild() != null) {
+            TagCloudAction action = project.getLastBuild().getAction(TagCloudAction.class);
+            if (action != null) {
+                actions.add(action);
+            }
+        }
+
+        return actions;
     }
 
 

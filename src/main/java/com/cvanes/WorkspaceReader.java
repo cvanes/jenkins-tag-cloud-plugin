@@ -15,7 +15,7 @@ import org.apache.tools.ant.types.FileSet;
  * Executed on the slave to find which files should be
  * used for checking the delta in the test count.
  */
-public class WorkspaceLister implements FilePath.FileCallable<String> {
+public class WorkspaceReader implements FilePath.FileCallable<String> {
 
     private static final long serialVersionUID = 2306949616575685812L;
 
@@ -25,7 +25,7 @@ public class WorkspaceLister implements FilePath.FileCallable<String> {
 
     private final String excludes;
 
-    public WorkspaceLister(String includes, String excludes) {
+    public WorkspaceReader(String includes, String excludes) {
         this.includes = includes == null ? "**" : includes;
         this.excludes = excludes;
     }
