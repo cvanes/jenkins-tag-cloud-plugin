@@ -4,7 +4,8 @@ A Jenkins plugin which scans a project's source tree and generates a tag cloud o
 
 ## To Do
 
-* Test with languages other than Java.
+* Unit tests.
+* Localization.
 
 ## Thanks To
 
