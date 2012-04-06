@@ -1,6 +1,7 @@
 package com.cvanes;
 
 import hudson.model.Action;
+import hudson.model.AbstractProject;
 
 import java.util.List;
 
@@ -9,18 +10,30 @@ import org.mcavallo.opencloud.Tag;
 
 public class TagCloudAction implements Action {
 
-    private final List<Tag> tags;
+    private final transient AbstractProject<?, ?> project;
 
-//    private final transient AbstractProject<?, ?> job;
+    private Cloud cloud;
 
-    public TagCloudAction(String workspaceData) {
-        Cloud tagCloud = new Cloud();
-        tagCloud.setMinWeight(1);
-        tagCloud.setMaxWeight(10);
-        tagCloud.setMaxTagsToDisplay(50);
-        tagCloud.addText(workspaceData);
+    private boolean projectLevelView = false;
 
-        tags = tagCloud.tags();
+    public TagCloudAction(AbstractProject<?, ?> project, String workspaceData) {
+        this.project = project;
+
+        cloud = new Cloud();
+        cloud.setMinWeight(1);
+        cloud.setMaxWeight(10);
+        cloud.setMaxTagsToDisplay(50);
+        cloud.addText(workspaceData);
+
+        // the Cloud object could be huge so we don't want to persist everything to xml
+        List<Tag> tagList = cloud.tags();
+        cloud.clear();
+        cloud.addTags(tagList);
+    }
+
+    public TagCloudAction(AbstractProject<?, ?> project) {
+        this.project = project;
+        projectLevelView = true;
     }
 
     public String getIconFileName() {
@@ -28,22 +41,25 @@ public class TagCloudAction implements Action {
     }
 
     public String getDisplayName() {
-        return "Tag Cloud From Source";
+        return "Tag Cloud";
     }
 
     public String getUrlName() {
         return "tagCloud";
     }
 
-    public List<Tag> getTags() {
-        return tags;
+    public Cloud getCloud() {
+        if (projectLevelView && project.getLastBuild() != null) {
+            TagCloudAction actionFromLastBuild = project.getLastBuild().getAction(TagCloudAction.class);
+            if (actionFromLastBuild != null) {
+                return actionFromLastBuild.getCloud();
+            }
+        }
+        return cloud;
     }
-//
-//    public AbstractProject<?,?> getOwner() {
-//        return job;
-//    }
 
-//    public void doIndex(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
-//    }
+    public AbstractProject<?, ?> getOwner() {
+        return project;
+    }
 
 }

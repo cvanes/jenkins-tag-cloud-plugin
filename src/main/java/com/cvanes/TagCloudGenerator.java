@@ -13,16 +13,15 @@ import hudson.tasks.Recorder;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 
 import net.sf.json.JSONObject;
 
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 
-public class TagCloudRecorder extends Recorder {
+public class TagCloudGenerator extends Recorder {
 
     private final String includes;
 
@@ -47,8 +46,8 @@ public class TagCloudRecorder extends Recorder {
         }
 
         @Override
-        public TagCloudRecorder newInstance(StaplerRequest req, JSONObject formData) throws FormException {
-            return req.bindJSON(TagCloudRecorder.class, formData);
+        public TagCloudGenerator newInstance(StaplerRequest req, JSONObject formData) throws FormException {
+            return req.bindJSON(TagCloudGenerator.class, formData);
         }
     }
 
@@ -57,7 +56,7 @@ public class TagCloudRecorder extends Recorder {
      */
 
     @DataBoundConstructor
-    public TagCloudRecorder(String includes, String excludes) {
+    public TagCloudGenerator(String includes, String excludes) {
         this.includes = includes;
         this.excludes = excludes;
     }
@@ -79,34 +78,23 @@ public class TagCloudRecorder extends Recorder {
     }
 
     @Override
-    public boolean perform(AbstractBuild<?, ?> build,
-                           Launcher launcher,
-                           BuildListener listener) throws InterruptedException, IOException {
+    public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener)
+            throws InterruptedException, IOException {
 
         PrintStream logger = listener.getLogger();
-        String workspaceData = build.getWorkspace().act(new WorkspaceReader(includes, excludes));
+        String workspaceData = build.getWorkspace().act(new SourceCodeReader(includes, excludes));
         logger.println(workspaceData);
         logger.flush();
-        System.out.println(workspaceData);
-
-        // store for use in the job main page later
-        build.addAction(new TagCloudAction(workspaceData));
+        build.addAction(new TagCloudAction(build.getProject(), workspaceData));
 
         return true;
     }
 
     @Override
     public Collection<? extends Action> getProjectActions(AbstractProject<?, ?> project) {
-        List<TagCloudAction> actions = new ArrayList<TagCloudAction>();
-        if (project.getLastBuild() != null) {
-            TagCloudAction action = project.getLastBuild().getAction(TagCloudAction.class);
-            if (action != null) {
-                actions.add(action);
-            }
-        }
-
-        return actions;
+        // we use a reference to the project to make sure we always show
+        // the tag cloud from the latest build on the project page
+        return Collections.singletonList(new TagCloudAction(project));
     }
-
 
 }

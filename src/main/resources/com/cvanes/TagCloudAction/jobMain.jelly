@@ -30,7 +30,7 @@ THE SOFTWARE.
    <l:main-panel>
      <table style="margin-left:1em;">
        <t:summary icon="/plugin/jenkins-tag-cloud-plugin/icons/48x48.png" href="tagCloud">
-         Tag Cloud From Source
+         Tag Cloud
        </t:summary>
      </table>
   </l:main-panel>

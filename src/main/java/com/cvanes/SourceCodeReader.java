@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import javax.activation.MimetypesFileTypeMap;
+
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.types.FileSet;
 
@@ -15,9 +17,15 @@ import org.apache.tools.ant.types.FileSet;
  * Executed on the slave to find which files should be
  * used for checking the delta in the test count.
  */
-public class WorkspaceReader implements FilePath.FileCallable<String> {
+public class SourceCodeReader implements FilePath.FileCallable<String> {
 
     private static final long serialVersionUID = 2306949616575685812L;
+
+    private static final String GIT_DIR = ".git" + File.separator;
+
+    private static final String HG_DIR = ".hg" + File.separator;
+
+    private static final MimetypesFileTypeMap mimeTypes = new MimetypesFileTypeMap();
 
     private final byte[] buffer = new byte[4096];
 
@@ -25,7 +33,7 @@ public class WorkspaceReader implements FilePath.FileCallable<String> {
 
     private final String excludes;
 
-    public WorkspaceReader(String includes, String excludes) {
+    public SourceCodeReader(String includes, String excludes) {
         this.includes = includes == null ? "**" : includes;
         this.excludes = excludes;
     }
@@ -39,13 +47,20 @@ public class WorkspaceReader implements FilePath.FileCallable<String> {
         String[] files = ds.getIncludedFiles();
         StringBuilder allFileContents = new StringBuilder();
         for (String filename : files) {
-            FileInputStream inputStream = new FileInputStream(workspace.getAbsolutePath() + File.separator + filename);
-            while (inputStream.read(buffer) != -1) {
-                allFileContents.append(new String(buffer));
-                allFileContents.append("\n");
+            File file = new File(workspace.getAbsolutePath() + File.separator + filename);
+            if (!scmMetadataFile(filename.trim())) {
+                FileInputStream inputStream = new FileInputStream(file);
+                while (inputStream.read(buffer) != -1) {
+                    allFileContents.append(new String(buffer));
+                    allFileContents.append("\n");
+                }
             }
         }
         return allFileContents.toString();
+    }
+
+    private boolean scmMetadataFile(String filename) {
+        return filename.startsWith(GIT_DIR) || filename.startsWith(HG_DIR);
     }
 
 }
