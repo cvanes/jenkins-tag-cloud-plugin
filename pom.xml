@@ -9,7 +9,29 @@
   <artifactId>jenkins-tag-cloud-plugin</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>hpi</packaging>
-
+  <url>http://wiki.jenkins-ci.org/display/JENKINS/Tag+Cloud+Plugin</url>
+  
+  <licenses>
+    <license>
+      <name>MIT</name>
+      <url>http://www.opensource.org/licenses/mit-license.php</url>
+    </license>
+  </licenses>
+  
+  <scm>
+    <connection>scm:git:ssh://github.com/cvanes/jenkins-tag-cloud-plugin.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/cvanes/jenkins-tag-cloud-plugin.git</developerConnection>
+    <url>https://github.com/cvanes/jenkins-tag-cloud-plugin</url>
+  </scm>
+  
+  <developers>
+    <developer>
+      <id>cvanes</id>
+      <name>Chris van Es</name>
+      <email>cvanes@gmail.com</email>
+    </developer>
+  </developers>
+  
   <!-- get every artifact through repo.jenkins-ci.org, which proxies all the artifacts that we need -->
   <repositories>
     <repository>
@@ -27,11 +49,9 @@
   
   <dependencies>
     <dependency>
-      <groupId>org.mcavallo</groupId>
+      <groupId>org.mcavallo.opencloud</groupId>
       <artifactId>opencloud</artifactId>
       <version>0.3</version>
-      <scope>system</scope>
-      <systemPath>${basedir}/opencloud/opencloud.jar</systemPath>
     </dependency>
   </dependencies>
   
