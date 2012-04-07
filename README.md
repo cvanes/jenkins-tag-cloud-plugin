@@ -1,6 +1,6 @@
 # Jenkins Tag Cloud Plugin
 
-A Jenkins plugin which scans a project's source tree and generates a tag cloud of commonly used words. Taken from an idea demonstrated by [Kevlin Henney](http://twitter.com/kevlinhenney) at a recent [Bash.ie](http://bash.ie/Events/kevlin/) event in Belfast NI.
+A Jenkins plugin which scans a project's source and generates a tag cloud of commonly used words. Taken from an idea demonstrated by [Kevlin Henney](http://twitter.com/kevlinhenney) at a recent [Bash.ie](http://bash.ie/Events/kevlin/) event in Belfast NI.
 
 ## To Do
 
