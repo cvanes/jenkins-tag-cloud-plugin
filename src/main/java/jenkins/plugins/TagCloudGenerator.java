@@ -1,4 +1,4 @@
-package com.cvanes;
+package jenkins.plugins;
 
 import hudson.Extension;
 import hudson.Launcher;

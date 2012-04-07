@@ -1,4 +1,4 @@
-package com.cvanes;
+package jenkins.plugins;
 
 import hudson.model.Action;
 import hudson.model.AbstractProject;
