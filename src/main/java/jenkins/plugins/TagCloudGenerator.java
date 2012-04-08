@@ -12,7 +12,6 @@ import hudson.tasks.Publisher;
 import hudson.tasks.Recorder;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -81,10 +80,7 @@ public class TagCloudGenerator extends Recorder {
     public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener)
             throws InterruptedException, IOException {
 
-        PrintStream logger = listener.getLogger();
         String workspaceData = build.getWorkspace().act(new SourceCodeReader(includes, excludes));
-        logger.println(workspaceData);
-        logger.flush();
         build.addAction(new TagCloudAction(build.getProject(), workspaceData));
 
         return true;
