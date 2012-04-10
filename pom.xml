@@ -19,9 +19,9 @@
   </licenses>
   
   <scm>
-    <connection>scm:git:ssh://github.com/cvanes/jenkins-tag-cloud-plugin.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/cvanes/jenkins-tag-cloud-plugin.git</developerConnection>
-    <url>https://github.com/cvanes/jenkins-tag-cloud-plugin</url>
+    <connection>scm:git:ssh://github.com/jenkinsci/tag-cloud-plugin.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/jenkinsci/tag-cloud-plugin.git</developerConnection>
+    <url>https://github.com/jenkinsci/tag-cloud-plugin</url>
   </scm>
   
   <developers>
