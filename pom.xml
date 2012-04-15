@@ -7,7 +7,7 @@
   </parent>
 
   <artifactId>jenkins-tag-cloud-plugin</artifactId>
-  <version>1.5-SNAPSHOT</version>
+  <version>1.5</version>
   <packaging>hpi</packaging>
 
   <name>Tag Cloud Plugin</name>
