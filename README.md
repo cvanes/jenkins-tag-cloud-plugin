@@ -5,7 +5,7 @@ A Jenkins plugin which scans a project's source and generates a tag cloud of com
 ## To Do
 
 * Unit tests.
-* Localization.
+* Localization of configuration UI elements.
 
 ## Thanks To
 
