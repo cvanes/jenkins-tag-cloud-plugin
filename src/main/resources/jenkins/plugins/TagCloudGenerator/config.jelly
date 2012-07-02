@@ -6,4 +6,7 @@
   <f:entry title="${%excludesLabel}" field="excludes">
     <f:textbox />
   </f:entry>  
+  <f:entry title="${%maxTagsLabel}" field="maxTags">
+    <f:textbox />
+  </f:entry>  
 </j:jelly>
