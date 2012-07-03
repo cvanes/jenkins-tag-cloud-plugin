@@ -26,6 +26,8 @@ public class TagCloudGenerator extends Recorder {
 
     private final String excludes;
 
+    private final Integer maxTags;
+
     @Extension
     public static class DescriptorImpl extends BuildStepDescriptor<Publisher> {
         @Override
@@ -55,9 +57,10 @@ public class TagCloudGenerator extends Recorder {
      */
 
     @DataBoundConstructor
-    public TagCloudGenerator(String includes, String excludes) {
+    public TagCloudGenerator(String includes, String excludes, Integer maxTags) {
         this.includes = includes;
         this.excludes = excludes;
+        this.maxTags = maxTags;
     }
 
     /*
@@ -81,7 +84,17 @@ public class TagCloudGenerator extends Recorder {
             throws InterruptedException, IOException {
 
         String workspaceData = build.getWorkspace().act(new SourceCodeReader(includes, excludes));
-        build.addAction(new TagCloudAction(build.getProject(), workspaceData));
+        int mt = 50;
+        if (maxTags == null) {
+            // mt = 50;
+        } else {
+            if (maxTags == 0) {
+                mt = 50;
+            } else {
+                mt = maxTags;
+            }
+        }
+        build.addAction(new TagCloudAction(build.getProject(), workspaceData,mt));
 
         return true;
     }
