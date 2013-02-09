@@ -14,8 +14,7 @@ import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.types.FileSet;
 
 /**
- * Executed on the slave to find which files should be
- * used for checking the delta in the test count.
+ * Executed on the slave to find source files.
  */
 public class SourceCodeReader implements FilePath.FileCallable<String> {
 
